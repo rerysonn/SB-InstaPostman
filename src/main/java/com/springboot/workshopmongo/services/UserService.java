@@ -38,4 +38,10 @@ public class UserService {
 				objDto.getName(),
 				objDto.getEmail());
 	}
+	
+	// DELETAR USUARIO
+	public void delete(String id) {
+		findById(id);
+		repo.deleteById(id);
+	}
 }

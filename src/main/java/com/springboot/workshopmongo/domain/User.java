@@ -1,9 +1,12 @@
 package com.springboot.workshopmongo.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "user")
@@ -15,6 +18,11 @@ public class User implements Serializable{
 	private String id;
 	private String name;
 	private String email;
+	
+	
+	// POST DOS USUARIOS APENAS REFERENCIADOS E NAO ANINHADOS
+	@DBRef(lazy = true ) // LAZY = GARANTIR QUE OS POSTS SERAO CARREGADOS SE FOR ACESSADO
+	private List<Post> ports = new ArrayList<>();
 	
 	// Construtor vazio //
 	public User() {
@@ -50,6 +58,14 @@ public class User implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public List<Post> getPorts() {
+		return ports;
+	}
+
+	public void setPorts(List<Post> ports) {
+		this.ports = ports;
+	}
 
 	@Override
 	public int hashCode() {
@@ -67,6 +83,8 @@ public class User implements Serializable{
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	
 
 	
 }

@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.springboot.workshopmongo.domain.Post;
 import com.springboot.workshopmongo.domain.User;
+import com.springboot.workshopmongo.dto.AuthorDTO;
 import com.springboot.workshopmongo.repository.PostRepository;
 import com.springboot.workshopmongo.repository.UserRepository;
 
@@ -33,25 +34,34 @@ public class Instantiation implements CommandLineRunner{
 		postRepository.deleteAll();
 		
 		// INSTANCIANDO OS USUARIOS
-		User mario = new User(null, "Mario Sergio", "mario@paysandu.com");
-		User joao = new User(null, "Joao Vieira", "joao@paysandu.com");
-		User yuri = new User(null, "Yuri Alberto", "yuri@corinthians.com");
+		User mario = new User(null, // ID
+				"Mario Sergio", // NOME
+				"mario@paysandu.com"); // EMAIL
+		User joao = new User(null, 
+				"Joao Vieira", 
+				"joao@paysandu.com"); 
+		User yuri = new User(null, 
+				"Yuri Alberto", 
+				"yuri@corinthians.com");
+		
+		// SALVAR AS INTANCIAS
+		userRepository.saveAll(Arrays.asList(mario, joao, yuri));
 		
 		// INSTANCIANDO OS POSTS
 		Post post1 = new Post(null, // ID
 				sdf.parse("11/11/2012"), // DATA
 				"Meu aniversario", // TITULO
 				"Muitos aos de vida!!", // DESCRIÇÃO DO POST
-				yuri); // AUTOR 
+			new AuthorDTO(yuri)); // AUTOR 
 		
-		Post post2 = new Post(null, // ID
-				sdf.parse("12/06/2016"), // DATA
-				"Vamos subir paysandu!!", // TITULO
-				"VAMO PRA SERIE B",// DESCRIÇÃO DO POST
-				joao); // AUTOR
+		Post post2 = new Post(null,
+				sdf.parse("12/06/2016"), 
+				"Vamos subir paysandu!!", 
+				"VAMO PRA SERIE B",
+				new AuthorDTO(joao));
 		
 		// SALVAR AS INTANCIAS
-		userRepository.saveAll(Arrays.asList(mario, joao, yuri));
+		
 		postRepository.saveAll(Arrays.asList(post1, post2));
 	}
 

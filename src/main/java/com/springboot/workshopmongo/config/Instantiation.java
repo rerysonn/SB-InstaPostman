@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.springboot.workshopmongo.domain.Post;
 import com.springboot.workshopmongo.domain.User;
 import com.springboot.workshopmongo.dto.AuthorDTO;
+import com.springboot.workshopmongo.dto.CommentDTO;
 import com.springboot.workshopmongo.repository.PostRepository;
 import com.springboot.workshopmongo.repository.UserRepository;
 
@@ -51,7 +52,7 @@ public class Instantiation implements CommandLineRunner{
 		Post post1 = new Post(null, // ID
 				sdf.parse("11/11/2012"), // DATA
 				"Meu aniversario", // TITULO
-				"Muitos aos de vida!!", // DESCRIÇÃO DO POST
+				"10 anos!!!", // DESCRIÇÃO DO POST
 			new AuthorDTO(yuri)); // AUTOR 
 		
 		Post post2 = new Post(null,
@@ -60,8 +61,22 @@ public class Instantiation implements CommandLineRunner{
 				"VAMO PRA SERIE B",
 				new AuthorDTO(joao));
 		
-		// SALVAR AS INTANCIAS
+		//INSTANCIAR OS COMENTARIOS		
+		CommentDTO c1 = new CommentDTO("Parabens irmao!!",
+				sdf.parse("11/11/2012"),
+				new AuthorDTO(mario));
 		
+		CommentDTO c2 = new CommentDTO("Aproveita seu dia!!",
+				sdf.parse("12/11/2012"),
+				new AuthorDTO(joao));
+		CommentDTO c3 = new CommentDTO("Aqui é paysandu!!",
+				sdf.parse("15/06/2016"),
+				new AuthorDTO(mario));
+		
+		post1.getComments().addAll(Arrays.asList(c1,c2));
+		post2.getComments().addAll(Arrays.asList(c3));
+		
+		// SALVAR AS INTANCIAS		
 		postRepository.saveAll(Arrays.asList(post1, post2));
 		
 		joao.getPorts().addAll(Arrays.asList(post2));

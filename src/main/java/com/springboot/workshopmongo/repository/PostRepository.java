@@ -1,5 +1,6 @@
 package com.springboot.workshopmongo.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -11,10 +12,18 @@ import com.springboot.workshopmongo.domain.Post;
 @Repository
 public interface PostRepository extends MongoRepository<Post, String> {
 	
+	// CONSULTA COM CASE SENSITIVE
 	@Query("{ 'Title': { $regex: ?0, $options: 'i' } }")
 	List<Post> searchTitle (String text);
 	
 	List<Post> findByTitleContainingIgnoreCase(String text);
+	
+	@Query("{ $and: [ { date: { $gte: ?1} }, { date: { $lte: ?2 } }," // BUSCA POR DATA MIN OU MAX
+			+ " { $or: " // OU
+			+ "[ { 'Title': { $regex: ?0, $options: 'i' } }, " // POR TEXTO DENTRO DO TITULO
+			+ "{ 'body': { $regex: ?0, $options: 'i' } }, " // POR TEXTO DENTRO DA DESCRIÇÃO
+			+ "{ 'comments.text': { $regex: ?0, $options: 'i' } } ] } ] }") // POR COMENTARIO
+	List<Post> fullSearch(String text, Date minDate, Date maxDate);
 	
 	
 	

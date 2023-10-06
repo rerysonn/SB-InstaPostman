@@ -28,7 +28,7 @@ Antes de iniciar o projeto, certifique-se de ter as seguintes ferramentas e depe
 ### Banco de Dados Relacionados a Agregados - Conceito
 Em bancos de dados relacionados a agregados, os dados são modelados de forma a agrupar informações relacionadas em uma única unidade, chamada de "agregado". Essa abordagem é particularmente útil para estruturar dados em um formato que reflita a semântica natural dos objetos do mundo real e suas relações. Cada agregado contém uma raiz e uma ou mais entidades associadas, encapsulando o acesso e a manipulação de dados.
 
-No MongoDB, um banco de dados NoSQL orientado a documentos, os agregados são frequentemente representados como documentos JSON aninhados. Considere um exemplo simples de um sistema de blog onde temos postagens e comentários.
+No MongoDB, um banco de dados NoSQL orientado a documentos, os agregados são frequentemente representados como documentos JSON aninhados.
 
 ### Executando o Projeto
 
